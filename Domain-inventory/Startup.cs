@@ -121,7 +121,7 @@ namespace Domain_inventory
             
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebCats API");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Domain Management");
             });
 
             app.UseHttpsRedirection();
