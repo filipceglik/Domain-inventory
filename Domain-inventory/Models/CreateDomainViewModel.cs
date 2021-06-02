@@ -1,10 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Domain_inventory.Models
 {
-    public class Domain
+    public class CreateDomainViewModel
     {
         [Display(Name = "Domain")]
         public string name { get; set; }
@@ -12,10 +11,14 @@ namespace Domain_inventory.Models
         public DateTime buyTime { get; set; }
         [Display(Name = "Expires On")]
         public DateTime expiresOn { get; set; }
-        [Display(Name = "Safe to use?")]
-        public bool o365Cadency { get; set; }
-        //public Dictionary<string,string> categories { get; set; }
-        
-        public virtual ICollection<Domain> Domains { get; set; }
+
+        [Display(Name = "Safe to use?")] 
+        public bool o365Cadency;
+
+        public bool is44DaysOrOlder
+        {
+            get => o365Cadency = buyTime.AddDays(44) >= DateTime.Now;
+            set => o365Cadency = value;
+        }
     }
 }

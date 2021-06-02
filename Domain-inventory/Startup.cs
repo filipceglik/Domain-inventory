@@ -61,6 +61,7 @@ namespace Domain_inventory
             
             services.AddSingleton(provider => new DatabaseContext("mongodb://localhost:27017"));
             services.AddSingleton<UserRepository>();
+            services.AddSingleton<DomainRepository>();
             
             services.AddAuthorization(options =>
             {
