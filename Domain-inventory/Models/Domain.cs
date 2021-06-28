@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Domain_inventory.Models
 {
     public class Domain
     {
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
         [Display(Name = "Domain")]
         public string name { get; set; }
         [Display(Name = "Created On")]

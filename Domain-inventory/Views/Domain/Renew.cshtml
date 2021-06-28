@@ -1,0 +1,53 @@
+﻿@using Microsoft.AspNetCore.Http
+@model RenewDomainViewModel
+
+@{
+    ViewData["Title"] = "Renew Domain";
+}
+
+<script>
+$(document).on('click', '.value-control', function () {
+    var action = $(this).attr('data-action')
+    var min = $(this).attr('data-min')
+    var max = $(this).attr('data-max')
+    var target = $(this).attr('data-target')
+    var value = parseFloat($('[id="' + target + '"]').val());
+    if (action == "plus") {
+        if (value < max) {
+            value++;
+        } 
+    }
+    if (action == "minus") {
+        if (value > min) {
+            value--;
+        } 
+    }
+    $('[id="' + target + '"]').val(value)
+})
+</script>
+
+<form asp-action="Renew" method="post">
+    @*<div class="form-group">
+        <label asp-for="name" class="form-label"></label>
+        <input asp-for="name" class="form-control">
+        <span asp-validation-for="name" class="text-danger"></span>
+    </div>*@
+    
+        
+    <div class="input-group">
+        <label asp-for="name" class="form-label"></label>
+        <input class="form-control" placeholder="">
+        <span>@ViewBag.name</span>
+        <span asp-validation-for="name" class="text-danger"></span>
+        <label asp-for="RenewalYears" class="form-label"></label>
+        <span class="input-group-btn"><button class="btn btn-default value-control" data-action="minus" data-min="0" data-target="font-size"><span class="glyphicon glyphicon-minus"></span></button></span>
+        <input asp-for="RenewalYears" type="text" placeholder="How many years?" class="form-control" id="font-size"/>
+        <span class="input-group-btn"><button class="btn btn-default value-control" data-action="plus" data-max="9" data-target="font-size"><span class="glyphicon glyphicon-plus"></span></button></span>
+    </div>
+    <button class="btn btn-primary">Renew</button>
+</form>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial"/>
+}

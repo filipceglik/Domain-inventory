@@ -21,7 +21,11 @@ namespace Domain_inventory.Infrastructure
             .GetCollection<Domain>()
             .AsQueryable()
             .FirstOrDefaultAsync(x => x.name == domainName);
-        
+
+        public async Task<ICollection<Domain>> GetDomains() => await _databaseContext
+            .GetCollection<Domain>()
+            .AsQueryable()
+            .ToListAsync();
 
         public async Task<bool> CreateDomain(Domain domain)
         {
@@ -37,14 +41,14 @@ namespace Domain_inventory.Infrastructure
             return false;
         }
 
-        public async Task<bool> RenewDomain(Domain domain)
+        public async Task<bool> RenewDomain(Domain domain, int years)
         {
             var entity = await GetDomain(domain.name);
             
             if (entity == null)
                 return false;
             
-            entity.expiresOn = DateTime.Now.AddYears(1);
+            entity.expiresOn = entity.expiresOn.AddYears(years);
 
             await _databaseContext
                 .GetCollection<Domain>()
@@ -52,7 +56,7 @@ namespace Domain_inventory.Infrastructure
             
             return true;
         }
-        
+
         public async Task DeleteDomain(Domain domain)
         {
             await _databaseContext

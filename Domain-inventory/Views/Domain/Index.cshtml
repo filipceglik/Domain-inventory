@@ -1,0 +1,43 @@
+﻿@model DomainsViewModel
+
+@{
+    ViewData["Title"] = "Domains Index";
+}
+
+@*<div class="mb-3 mt-3">
+    <a asp-action="Create" class="btn btn-primary">Create</a>
+</div>*@
+
+<div class="mb-3">
+    <form asp-action="Index" method="get">
+        <div class="input-group mb-3">
+            @*<input asp-for="SearchPhrase" placeholder="Wpisz szukaną frazę" class="form-control">*@
+            <button class="btn btn-secondary input-group-text">Szukaj</button>
+        </div>
+    </form>
+</div>
+
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>Domain</th>
+        <th>Created On</th>
+        <th>Expires On</th>
+        <th>Safe to use?</th>
+    </tr>
+
+    @foreach (var item in Model.Domains)
+    {
+        <tr>
+            <td>@item.name</td>
+            <td>@item.buyTime</td>
+            <td>@item.expiresOn</td>
+            <td>@item.o365Cadency</td>
+            <td>
+                <a asp-action="Renew" asp-route-id="@item.name">Renew</a>
+                @*<a asp-action="Details" asp-route-id="@item.EmployeeId">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.EmployeeId">Delete</a>*@
+            </td>
+        </tr>
+    }
+
+</table>
